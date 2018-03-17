@@ -28,6 +28,10 @@ public class ShipRenderer  {
         {
             calculateVectorToMove(this.angle);
         }
+        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE))
+        {
+            System.exit(0);
+        }
         ship.begin(ShapeRenderer.ShapeType.Filled);
         ship.identity();
         ship.translate(posX, posY, posZ);
@@ -45,7 +49,7 @@ public class ShipRenderer  {
 
         //Set position of ship
         position.set(posX,posY);
-        mouse.set(Gdx.input.getX(),Gdx.input.getY());
+        mouse.set(Gdx.input.getX(), -Gdx.input.getY() + Gdx.graphics.getHeight());
         dir.set(mouse).sub(position).nor();
         //Set Velocity = 1f
         velocity.set(dir).scl(1f);
@@ -56,9 +60,9 @@ public class ShipRenderer  {
 
     private void calculateAngle() {
         int mouseX = Gdx.input.getX();
-        int mouseY = Gdx.input.getY();
-        this.angle =  (float)(Math.atan2(posX - mouseX,posY - mouseY) *180.0f /Math.PI);
-
+        int mouseY =  -Gdx.input.getY() + Gdx.graphics.getHeight();
+        this.angle =  180 - (float)(Math.atan2(posX - mouseX,posY - mouseY) * 180f / Math.PI);
+        System.out.println("angle="+angle);
     }
 
     public float getPosX() {
