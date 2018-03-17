@@ -13,6 +13,8 @@ public class ShipRenderer  {
     private float posZ =0;
     private float angle = 0;
 
+    private static final int SPEED = 10;
+
     private ShapeRenderer ship;
 
     public void create()
@@ -41,21 +43,8 @@ public class ShipRenderer  {
     }
 
     private void calculateVectorToMove(float angle) {
-        Vector2 position = new Vector2();
-        Vector2 velocity = new Vector2();
-        Vector2 movement = new Vector2();
-        Vector2 mouse = new Vector2();
-        Vector2 dir = new Vector2();
-
-        //Set position of ship
-        position.set(posX,posY);
-        mouse.set(Gdx.input.getX(), -Gdx.input.getY() + Gdx.graphics.getHeight());
-        dir.set(mouse).sub(position).nor();
-        //Set Velocity = 1f
-        velocity.set(dir).scl(1f);
-        position.add(movement);
-        posX = position.x;
-        posY = position.y;
+        posX = (float)(posX+SPEED*Math.cos(angle));
+        posY = (float)(posY+SPEED*Math.sin(angle));
     }
 
     private void calculateAngle() {
