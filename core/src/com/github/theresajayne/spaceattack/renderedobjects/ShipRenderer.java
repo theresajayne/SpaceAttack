@@ -50,7 +50,7 @@ public class ShipRenderer  {
     private void calculateAngle() {
         int mouseX = Gdx.input.getX();
         int mouseY =  -Gdx.input.getY() + Gdx.graphics.getHeight();
-        this.angle =  180 - (float)(Math.atan2(posX - mouseX,posY - mouseY) * 180f / Math.PI);
+        this.angle =  90 + (float)(Math.atan2(posY - mouseY,posX - mouseX) * 180f / Math.PI);
         System.out.println("angle="+angle);
     }
 
