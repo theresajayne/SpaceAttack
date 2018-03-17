@@ -43,8 +43,8 @@ public class ShipRenderer  {
     }
 
     private void calculateVectorToMove(float angle) {
-        posX = (float)(posX+SPEED*Math.cos(angle));
-        posY = (float)(posY+SPEED*Math.sin(angle));
+        posX += (float)(SPEED*Math.cos(angle));
+        posY += (float)(SPEED*Math.sin(angle));
     }
 
     private void calculateAngle() {
