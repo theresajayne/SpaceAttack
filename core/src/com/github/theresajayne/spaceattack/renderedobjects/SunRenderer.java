@@ -1,10 +1,8 @@
 package com.github.theresajayne.spaceattack.renderedobjects;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class SunRenderer implements GameObject
 {
@@ -24,6 +22,7 @@ public class SunRenderer implements GameObject
     @Override
     public void create() {
         sun = new Sprite(new Texture(Gdx.files.internal("sun.png")));
+        sun.setPosition(posX,posY);
         sun.setSize(radius,radius);
     }
 
