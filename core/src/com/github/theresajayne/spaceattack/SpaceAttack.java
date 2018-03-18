@@ -47,9 +47,10 @@ public class SpaceAttack extends ApplicationAdapter {
 		batch = new SpriteBatch();
 
 		gameObjects.add(new ShipRenderer(cam));
-		SunRenderer sun =new SunRenderer(640,480,70);
+		SunRenderer sun =new SunRenderer(640,480,150);
+		sun.create();
 		gameObjects.add(sun);
-		gameObjects.add(new PlanetRenderer(sun,200,30));
+		gameObjects.add(new PlanetRenderer(sun.getSprite(),200,30));
 		for(GameObject item:gameObjects)
 		{
 			item.create();
@@ -67,7 +68,7 @@ public class SpaceAttack extends ApplicationAdapter {
 		mapSprite.draw(batch);
 		for(GameObject item:gameObjects)
 		{
-			item.render();
+			item.render(Gdx.graphics.getDeltaTime());
 			item.getSprite().draw(batch);
 		}
 		batch.end();

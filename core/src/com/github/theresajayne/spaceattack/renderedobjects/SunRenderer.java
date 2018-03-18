@@ -28,7 +28,7 @@ public class SunRenderer implements GameObject
     }
 
     @Override
-    public void render() {
+    public void render(float dt) {
         //Nothing to do here
     }
 

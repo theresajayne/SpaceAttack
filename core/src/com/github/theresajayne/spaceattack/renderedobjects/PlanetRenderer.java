@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class PlanetRenderer implements GameObject {
 
+    private float temp;
     private float posX;
     private float posY;
     private int radius;
@@ -13,10 +14,10 @@ public class PlanetRenderer implements GameObject {
     private Sprite planet;
     private int angle =0;
 
-    public PlanetRenderer(GameObject parent,int distance, int radius)
+    public PlanetRenderer(Sprite parent,int distance, int radius)
     {
-        posX = parent.getPosX();
-        posY = parent.getPosY();
+        posX = parent.getX()+(parent.getOriginX()/2);
+        posY = parent.getY()+(parent.getOriginY()/2);
         this.radius = radius;
         this.distance = distance;
     }
@@ -27,16 +28,19 @@ public class PlanetRenderer implements GameObject {
         planet.setPosition(posX-distance,posY);
         planet.setSize(radius,radius);
         planet.setOrigin(planet.getWidth()/2,planet.getHeight()/2);
-
+        planet.setOriginCenter();
     }
 
     @Override
-    public void render() {
-        angle += 1;
-       if(angle>359) angle = 0;
-       if(angle<0) angle = 359;
-
-        planet.setRotation(angle);
+    public void render(float dt) {
+        temp +=dt;
+       if(temp>359) temp = 0;
+       if(temp<0) temp = 359;
+        planet.setRotation(temp);
+        //Now calculate the pos based on the parent
+        float newX = (float)(distance * Math.sin(temp));
+        float newY = (float)(distance * Math.cos(temp));
+        planet.setPosition(posX+newX,posY+newY);
     }
 
     @Override

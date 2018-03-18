@@ -6,7 +6,7 @@ public interface GameObject {
 
     void create();
 
-    void render();
+    void render(float dt);
 
     float getPosX();
 

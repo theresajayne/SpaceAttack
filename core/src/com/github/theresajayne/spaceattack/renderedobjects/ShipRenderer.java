@@ -31,7 +31,7 @@ public class ShipRenderer  implements GameObject{
     }
 
     @Override
-    public void render()
+    public void render(float dt)
     {
        //calculateAngle();
         System.out.println("angle="+angle);
