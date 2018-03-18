@@ -12,12 +12,14 @@ public class PlanetRenderer implements GameObject {
     private int radius;
     private int distance;
     private Sprite planet;
+    private Sprite parent;
     private int angle =0;
 
     public PlanetRenderer(Sprite parent,int distance, int radius)
     {
         posX = parent.getX()+(parent.getOriginX()/2);
         posY = parent.getY()+(parent.getOriginY()/2);
+        this.parent = parent;
         this.radius = radius;
         this.distance = distance;
     }
@@ -33,6 +35,8 @@ public class PlanetRenderer implements GameObject {
 
     @Override
     public void render(float dt) {
+        posX = parent.getX()+(parent.getOriginX()/2);
+        posY = parent.getY()+(parent.getOriginY()/2);
         temp +=dt;
        if(temp>359) temp = 0;
        if(temp<0) temp = 359;
@@ -41,6 +45,9 @@ public class PlanetRenderer implements GameObject {
         float newX = (float)(distance * Math.sin(temp));
         float newY = (float)(distance * Math.cos(temp));
         planet.setPosition(posX+newX,posY+newY);
+        planet.setX(posX+newX);
+        planet.setY(posY+newY);
+        System.out.println("parent"+posX+" "+posY);
     }
 
     @Override
