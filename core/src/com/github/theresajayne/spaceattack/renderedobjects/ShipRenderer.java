@@ -2,24 +2,31 @@ package com.github.theresajayne.spaceattack.renderedobjects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class ShipRenderer  implements GameObject{
 
     private float posX = 200;
     private float posY =200;
-    private float posZ =0;
     private float angle = 0;
 
     private static final int SPEED = 10;
 
-    private ShapeRenderer ship;
+    private Sprite ship;
+
+    private OrthographicCamera cam;
+
+    public ShipRenderer(OrthographicCamera cam)
+    {
+        this.cam = cam;
+    }
 
     @Override
     public void create()
     {
-        ship = new ShapeRenderer();
+        ship = new Sprite(new Texture(Gdx.files.internal("ship.png")));
 
     }
 
@@ -47,12 +54,11 @@ public class ShipRenderer  implements GameObject{
         {
             System.exit(0);
         }
-        ship.begin(ShapeRenderer.ShapeType.Filled);
-        ship.identity();
-        ship.translate(posX, posY, posZ);
-        ship.rotate(0,0,1,getAngle());
-        ship.triangle(-25,-25,25,-25,0,25, Color.BLUE,Color.RED,Color.GREEN);
-        ship.end();
+        ship.setPosition(posX,posY);
+        ship.setRotation(angle);
+        ship.setSize(20,20);
+        cam.position.set(posX,posY,0);
+        cam.update();
     }
 
     private void validateAngle() {
@@ -71,35 +77,24 @@ public class ShipRenderer  implements GameObject{
         posY += (float)(SPEED*Math.sin(Math.toRadians(angle+90)));
     }
 
+    @Override
     public float getPosX() {
         return posX;
     }
 
-    public void setPosX(float posX) {
-        this.posX = posX;
-    }
-
+    @Override
     public float getPosY() {
         return posY;
     }
 
-    public void setPosY(float posY) {
-        this.posY = posY;
-    }
-
-    public float getPosZ() {
-        return posZ;
-    }
-
-    public void setPosZ(float posZ) {
-        this.posZ = posZ;
-    }
-
+    @Override
     public float getAngle() {
         return angle;
     }
 
-    public void setAngle(float angle) {
-        this.angle = angle;
+    @Override
+    public Sprite getSprite() {
+        return ship;
     }
+
 }
