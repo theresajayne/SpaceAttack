@@ -41,12 +41,12 @@ public class ShipRenderer  implements GameObject{
         }
         if(Gdx.input.isKeyPressed(Input.Keys.A))
         {
-            angle++;
+            angle+=5;
             validateAngle();
         }
         if(Gdx.input.isKeyPressed(Input.Keys.D))
         {
-            angle--;
+            angle-=5;
             validateAngle();
 
         }
@@ -55,7 +55,6 @@ public class ShipRenderer  implements GameObject{
             System.exit(0);
         }
         ship.setOrigin(ship.getWidth()/2,ship.getHeight()/2);
-        ship.setCenter(posX,posY);
         ship.setPosition(posX,posY);
         ship.setSize(10,10);
         ship.setRotation(angle);

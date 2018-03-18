@@ -8,8 +8,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.github.theresajayne.spaceattack.renderedobjects.GameObject;
+import com.github.theresajayne.spaceattack.renderedobjects.PlanetRenderer;
 import com.github.theresajayne.spaceattack.renderedobjects.ShipRenderer;
 import com.github.theresajayne.spaceattack.renderedobjects.SunRenderer;
 
@@ -17,8 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SpaceAttack extends ApplicationAdapter {
-	private static final int WORLD_WIDTH = 1000;
-	private static final int WORLD_HEIGHT = 1000;
+	private static final int WORLD_WIDTH = 10000;
+	private static final int WORLD_HEIGHT = 10000;
 	private List<GameObject> gameObjects = new ArrayList<GameObject>();
 	private OrthographicCamera cam;
 	private SpriteBatch batch;
@@ -27,7 +29,11 @@ public class SpaceAttack extends ApplicationAdapter {
 
 	@Override
 	public void create () {
-		mapSprite = new Sprite(new Texture(Gdx.files.internal("starfield.jpg")));
+	    Texture starfield = new Texture(Gdx.files.internal("starfield.png"));
+	    starfield.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+	    TextureRegion region = new TextureRegion(starfield);
+	    region.setRegion(0,0,starfield.getWidth()*1000,starfield.getHeight()*1000);
+		mapSprite = new Sprite(region);
 		mapSprite.setPosition(0,0);
 		mapSprite.setSize(WORLD_WIDTH,WORLD_HEIGHT);
 
@@ -41,7 +47,9 @@ public class SpaceAttack extends ApplicationAdapter {
 		batch = new SpriteBatch();
 
 		gameObjects.add(new ShipRenderer(cam));
-		gameObjects.add(new SunRenderer(640,480,10));
+		SunRenderer sun =new SunRenderer(640,480,70);
+		gameObjects.add(sun);
+		gameObjects.add(new PlanetRenderer(sun,200,30));
 		for(GameObject item:gameObjects)
 		{
 			item.create();

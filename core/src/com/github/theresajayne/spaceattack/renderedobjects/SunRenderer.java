@@ -22,6 +22,7 @@ public class SunRenderer implements GameObject
     @Override
     public void create() {
         sun = new Sprite(new Texture(Gdx.files.internal("sun.png")));
+        sun.setOrigin(sun.getWidth()/2,sun.getHeight()/2);
         sun.setPosition(posX,posY);
         sun.setSize(radius,radius);
     }
