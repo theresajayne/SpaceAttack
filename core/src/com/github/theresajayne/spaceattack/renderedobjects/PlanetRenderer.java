@@ -35,19 +35,16 @@ public class PlanetRenderer implements GameObject {
 
     @Override
     public void render(float dt) {
-        posX = parent.getX()+(parent.getOriginX()/2);
-        posY = parent.getY()+(parent.getOriginY()/2);
         temp +=dt;
        if(temp>359) temp = 0;
        if(temp<0) temp = 359;
-        planet.setRotation(temp);
+        planet.rotate(10.5f/radius);
         //Now calculate the pos based on the parent
         float newX = (float)(distance * Math.sin(temp));
         float newY = (float)(distance * Math.cos(temp));
-        planet.setPosition(posX+newX,posY+newY);
-        planet.setX(posX+newX);
-        planet.setY(posY+newY);
-        System.out.println("parent"+posX+" "+posY);
+        planet.setPosition(parent.getX()+(parent.getOriginX()/2)+newX,parent.getY()+(parent.getOriginY()/2)+newY);
+        System.out.println("Parent"+parent.getX()+"|"+parent.getBoundingRectangle().width);
+        System.out.println("Planet"+planet.getX()+"|"+planet.getBoundingRectangle().width);
     }
 
     @Override
