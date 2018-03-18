@@ -8,11 +8,12 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class ShipRenderer  implements GameObject{
 
-    private float posX = 200;
-    private float posY =200;
+    private float posX = 540;
+    private float posY =480;
     private float angle = 0;
+    private float accel = 0;
 
-    private static final int SPEED = 10;
+    private static final int MAXSPEED = 10;
 
     private Sprite ship;
 
@@ -33,10 +34,15 @@ public class ShipRenderer  implements GameObject{
     @Override
     public void render(float dt)
     {
-       //calculateAngle();
         System.out.println("angle="+angle);
         if(Gdx.input.isKeyPressed(Input.Keys.W))
         {
+            if(accel<MAXSPEED)accel+=1*dt;
+            calculateVectorToMove(this.angle);
+        }
+        else
+        {
+            if(accel>0) accel-=1*dt;
             calculateVectorToMove(this.angle);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.A))
@@ -54,6 +60,7 @@ public class ShipRenderer  implements GameObject{
         {
             System.exit(0);
         }
+
         ship.setOrigin(ship.getWidth()/2,ship.getHeight()/2);
         ship.setPosition(posX,posY);
         ship.setSize(10,10);
@@ -74,8 +81,8 @@ public class ShipRenderer  implements GameObject{
     }
 
     private void calculateVectorToMove(float angle) {
-        posX += (float)(SPEED*Math.cos(Math.toRadians(angle+90)));
-        posY += (float)(SPEED*Math.sin(Math.toRadians(angle+90)));
+        posX += (float)(accel*Math.cos(Math.toRadians(angle+90)));
+        posY += (float)(accel*Math.sin(Math.toRadians(angle+90)));
     }
 
     @Override
