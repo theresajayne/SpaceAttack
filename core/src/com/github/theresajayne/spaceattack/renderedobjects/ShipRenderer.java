@@ -4,9 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
 
-public class ShipRenderer  {
+public class ShipRenderer  implements GameObject{
 
     private float posX = 200;
     private float posY =200;
@@ -17,12 +16,14 @@ public class ShipRenderer  {
 
     private ShapeRenderer ship;
 
+    @Override
     public void create()
     {
         ship = new ShapeRenderer();
 
     }
 
+    @Override
     public void render()
     {
        //calculateAngle();
