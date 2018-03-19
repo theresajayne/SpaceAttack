@@ -7,18 +7,16 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 public class PlanetRenderer implements GameObject {
 
     private float temp;
-    private float posX;
-    private float posY;
     private int radius;
     private int distance;
     private Sprite planet;
-    private Sprite parent;
+    private GameObject parent;
     private int angle =0;
+    private String name;
 
-    public PlanetRenderer(Sprite parent,int distance, int radius)
+    public PlanetRenderer(GameObject parent,int distance, int radius,String name)
     {
-        posX = parent.getX()+(parent.getOriginX()/2);
-        posY = parent.getY()+(parent.getOriginY()/2);
+        this.name = name;
         this.parent = parent;
         this.radius = radius;
         this.distance = distance;
@@ -27,7 +25,7 @@ public class PlanetRenderer implements GameObject {
     @Override
     public void create() {
         planet = new Sprite(new Texture(Gdx.files.internal("planet.png")));
-        planet.setPosition(posX-distance,posY);
+        planet.setPosition(parent.getSprite().getX()-distance,parent.getSprite().getY());
         planet.setSize(radius,radius);
         planet.setOrigin(planet.getWidth()/2,planet.getHeight()/2);
         planet.setOriginCenter();
@@ -38,13 +36,17 @@ public class PlanetRenderer implements GameObject {
         temp +=dt;
        if(temp>359) temp = 0;
        if(temp<0) temp = 359;
+       //Rotate the planet
         planet.rotate(10.5f/radius);
-        //Now calculate the pos based on the parent
+        //Now calculate the orbit
         float newX = (float)(distance * Math.sin(temp));
         float newY = (float)(distance * Math.cos(temp));
-        planet.setPosition(parent.getX()+(parent.getOriginX()/2)+newX,parent.getY()+(parent.getOriginY()/2)+newY);
-        System.out.println("Parent"+parent.getX()+"|"+parent.getBoundingRectangle().width);
-        System.out.println("Planet"+planet.getX()+"|"+planet.getBoundingRectangle().width);
+        //now position the planet based on the orbit and the parent's location
+        float parentPosX = parent.getSprite().getX()+(parent.getSprite().getOriginX()/2);
+        float parentPosY = parent.getSprite().getY()+(parent.getSprite().getOriginY()/2);
+        planet.setPosition(parentPosX+newX,parentPosY+newY);
+        System.out.println("Planet:"+name+" Parent"+parent.getSprite().getX()+"|"+parent.getSprite().getY());
+        System.out.println("Planet"+name+" Planet"+planet.getX()+"|"+planet.getY());
     }
 
     @Override

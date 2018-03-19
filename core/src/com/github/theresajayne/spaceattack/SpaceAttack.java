@@ -50,10 +50,10 @@ public class SpaceAttack extends ApplicationAdapter {
 		SunRenderer sun =new SunRenderer(640,480,150);
 		sun.create();
 		gameObjects.add(sun);
-		PlanetRenderer planet = new PlanetRenderer(sun.getSprite(),200,30);
+		PlanetRenderer planet = new PlanetRenderer(sun,200,30,"Jita 4");
 		gameObjects.add(planet);
 		planet.create();
-		gameObjects.add(new PlanetRenderer(planet.getSprite(),50,10));
+		gameObjects.add(new PlanetRenderer(planet,50,10,"Jita 4-1"));
 		for(GameObject item:gameObjects)
 		{
 			item.create();

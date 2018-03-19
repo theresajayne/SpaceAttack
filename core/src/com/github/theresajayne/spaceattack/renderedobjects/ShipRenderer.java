@@ -62,7 +62,9 @@ public class ShipRenderer  implements GameObject{
         }
 
         ship.setOrigin(ship.getWidth()/2,ship.getHeight()/2);
+        System.out.println("Ship "+ship.getX()+","+ship.getY());
         ship.setPosition(posX,posY);
+        System.out.println("Ship*"+ship.getX()+","+ship.getY());
         ship.setSize(10,10);
         ship.setRotation(angle);
         cam.position.set(posX,posY,0);
